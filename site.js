@@ -12,3 +12,9 @@ else if (isEvening)
 {message = "Good Evening, just buy another energy drink (;"}
 
 document.getElementById("welcome").textContent = message;
+
+
+
+const key = "It's a secret to everybody."
+
+localStorage.setItem(key, "It’s dangerous to go alone! Take this. I did search up the reference lol, but i am a big fan of zelda, and might get the Ocarina of Time Remake")
