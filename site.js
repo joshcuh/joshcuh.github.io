@@ -52,4 +52,39 @@ document.querySelector('#next').addEventListener('click', () => {
 setInterval(() => {
     currentImage--
     showImages()
-}, 5000)
+}, 5000);
+
+(() => {
+    const todoList = document.querySelector('.todo-list')
+    const input = document.querySelector('#new-todo')
+    const addButton = document.querySelector('#add-todo')
+
+    // load the array from localStorage
+    const getTodos = () => JSON.parse(localStorage.getItem('todo-list')) || []
+
+    // turn the array into a string and save it
+    const saveTodos = (todos) => localStorage.setItem('todo-list', JSON.stringify(todos))
+
+    // draw the list on the page
+    const renderTodos = () => {
+        todoList.innerHTML = '' // so there are no duplicates stacking
+        getTodos().forEach(({ text }) => {
+            const li = document.createElement('li')
+            li.classList.add('todo')
+            li.textContent = text
+            todoList.append(li)
+        })
+    }
+
+    // read the input field and add it to the list
+    addButton.addEventListener('click', () => {
+        const text = input.value.trim()
+        if (text === '') return
+
+        saveTodos([...getTodos(), { text, completed: false }])
+        input.value = ''
+        renderTodos()
+    })
+
+    renderTodos()
+    })()    
